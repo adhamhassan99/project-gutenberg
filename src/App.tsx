@@ -15,7 +15,14 @@ function App() {
     const formData = new FormData(form)
     const bookId = formData.get('bookId') as string
     console.log('Submitted Book ID:', bookId)
-    mutate(bookId)
+    mutate(bookId, {
+      onSuccess(data) {
+        console.log(data)
+      },
+      onError(error) {
+        alert(error.message)
+      },
+    })
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
