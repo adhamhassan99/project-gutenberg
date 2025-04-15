@@ -3,26 +3,19 @@ import './App.css'
 import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import { Label } from './components/ui/label'
-import { useFetchBookText } from './hooks/useFetchBookText'
+import { useAnalyzeBook } from './hooks/useAnalyzeBook'
 
 function App() {
   const [isDisabled, setIsDisabled] = useState(true)
-  const { mutate } = useFetchBookText()
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const { analyzeBook, uniqueCharacters } = useAnalyzeBook()
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.target as HTMLFormElement
     const formData = new FormData(form)
     const bookId = formData.get('bookId') as string
     console.log('Submitted Book ID:', bookId)
-    mutate(bookId, {
-      onSuccess(data) {
-        console.log(data)
-      },
-      onError(error) {
-        alert(error.message)
-      },
-    })
+    const res = await analyzeBook(bookId)
+    console.log(res, ' app')
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -43,6 +36,9 @@ function App() {
           />
           <Button disabled={isDisabled}>Analyze</Button>
         </form>
+      </div>
+      <div className="">
+        {uniqueCharacters?.output_text}
       </div>
     </div>
   )

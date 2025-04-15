@@ -1,0 +1,1 @@
+export const INSTRUCTIONS = 'Act as a professional Novel Analyzer I will provide a part from a novel and I expect you to return names of characters in this part. return the results in a form of a valid array of strings only'
