@@ -3,10 +3,11 @@ export type interaction = { "with": string, "count": number }
 export type interactionEntry = {
     source: string;
     target: string
-    count: 8
+    count: number
 }
 
-export function mergeDuplicateInteractions(data: (interactionEntry[])[]) {
+export function mergeDuplicateInteractions(data: (interactionEntry[])[]): { source: string, target: string, totalCount: number }[] {
+    console.log(data, ' merge input')
     const interactionMap = new Map();
 
     data.flat().forEach(({ source, target, count }) => {
@@ -20,11 +21,14 @@ export function mergeDuplicateInteractions(data: (interactionEntry[])[]) {
         }
     });
 
+    console.log(interactionMap, ' interaction map')
+
     // Convert the Map to an array of objects
     return Array.from(interactionMap.entries()).map(([pair, totalCount]) => {
         const [charA, charB] = pair.split('↔');
         return {
-            characters: [charA, charB],
+            source: charA,
+            target: charB,
             totalCount
         };
     }).sort((a, b) => b.totalCount - a.totalCount);

@@ -4,10 +4,11 @@ import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import { Label } from './components/ui/label'
 import { useAnalyzeBook } from './hooks/useAnalyzeBook'
+import InteractionVisualizer from './components/custom/InteractionVisualizer'
 
 function App() {
   const [isDisabled, setIsDisabled] = useState(true)
-  const [result, setResult] = useState<{ characters: string[], totalCount: number }[] | undefined>([])
+  const [result, setResult] = useState<{ source: string, target: string, totalCount: number }[] | undefined>([])
   const { analyzeBook } = useAnalyzeBook()
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -25,7 +26,7 @@ function App() {
   }
   console.log({ result })
   return (
-    <div>
+    <div className=' h-full flex flex-col p-10'>
       <div>
         <form onSubmit={handleSubmit} className="flex flex-col gap-1">
           <Label htmlFor="bookId">Enter your Book Id</Label>
@@ -39,14 +40,8 @@ function App() {
           <Button disabled={isDisabled}>Analyze</Button>
         </form>
       </div>
-      <div className="">
-        {result?.map(item => (
-          <div className="flex gap-2">
-
-            <p>{item.characters.join(", ")}</p>
-            <p>{item.totalCount}</p>
-          </div>
-        ))}
+      <div className="flex-1">
+        {result && <InteractionVisualizer interactions={result} />}
       </div>
     </div>
   )
