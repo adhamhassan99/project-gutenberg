@@ -7,7 +7,8 @@ import { useAnalyzeBook } from './hooks/useAnalyzeBook'
 
 function App() {
   const [isDisabled, setIsDisabled] = useState(true)
-  const { analyzeBook, uniqueCharacters } = useAnalyzeBook()
+  const [result, setResult] = useState<{ characters: string[], totalCount: number }[] | undefined>([])
+  const { analyzeBook } = useAnalyzeBook()
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const form = e.target as HTMLFormElement
@@ -15,13 +16,14 @@ function App() {
     const bookId = formData.get('bookId') as string
     console.log('Submitted Book ID:', bookId)
     const res = await analyzeBook(bookId)
+    setResult(res)
     console.log(res, ' app')
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setIsDisabled(!e.target.value.trim())
   }
-
+  console.log({ result })
   return (
     <div>
       <div>
@@ -38,7 +40,13 @@ function App() {
         </form>
       </div>
       <div className="">
-        {uniqueCharacters?.output_text}
+        {result?.map(item => (
+          <div className="flex gap-2">
+
+            <p>{item.characters.join(", ")}</p>
+            <p>{item.totalCount}</p>
+          </div>
+        ))}
       </div>
     </div>
   )
