@@ -4,7 +4,7 @@ import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
 import { Label } from './components/ui/label'
 import { useAnalyzeBook } from './hooks/useAnalyzeBook'
-import InteractionVisualizer from './components/custom/InteractionVisualizer'
+import FlowWithProvider from './components/custom/InteractionVisualizer'
 
 function App() {
   const [isDisabled, setIsDisabled] = useState(true)
@@ -41,7 +41,7 @@ function App() {
         </form>
       </div>
       <div className="flex-1">
-        {result && <InteractionVisualizer interactions={result} />}
+        {result && result.length > 0 && <FlowWithProvider interactions={result} />}
       </div>
     </div>
   )
