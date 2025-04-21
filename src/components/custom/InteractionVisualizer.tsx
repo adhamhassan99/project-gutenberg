@@ -66,10 +66,7 @@ const InteractionVisualizer = ({ interactions }: Props) => {
 
     }, [])
 
-    useEffect(() => {
-        fitView()
 
-    }, [fitView, nodes, edges])
 
 
 
@@ -87,7 +84,7 @@ const InteractionVisualizer = ({ interactions }: Props) => {
     );
 
     return (
-        <ReactFlow onNodesDelete={() => { }} nodes={nodes}
+        <ReactFlow className='rounded-md' style={{ backgroundColor: 'white' }} onNodesDelete={() => { }} nodes={nodes}
             edges={edges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
@@ -97,7 +94,7 @@ const InteractionVisualizer = ({ interactions }: Props) => {
                 <Button variant={'outline'} onClick={() => onLayout('TB')}>horizontal layout</Button>
             </Panel>
             <MiniMap pannable zoomable />
-            <Background variant={BackgroundVariant.Dots} />
+            <Background variant={BackgroundVariant.Dots} size={2} />
         </ReactFlow>
 
     )

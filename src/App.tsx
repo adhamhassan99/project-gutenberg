@@ -32,7 +32,7 @@ function App() {
 
 
   return (
-    <div className=' h-full flex flex-col p-5 justify-center'>
+    <div id='mainBg' className=' h-full flex flex-col p-5 justify-center'>
       <div className='self-center min-w-[450px]'>
         <form onSubmit={handleSubmit} className="flex flex-col gap-1">
           <Label htmlFor="bookId">Enter your Book Id</Label>
