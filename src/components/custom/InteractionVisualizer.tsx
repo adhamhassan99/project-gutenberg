@@ -4,6 +4,7 @@ import Dagre from '@dagrejs/dagre';
 
 import '@xyflow/react/dist/style.css';
 import { useCallback, useEffect } from 'react';
+import { Button } from '../ui/button';
 
 
 type Props = {
@@ -56,7 +57,7 @@ const InteractionVisualizer = ({ interactions }: Props) => {
 
     useEffect(() => {
 
-        const layouted = getLayoutedElements(nodes, edges, { direction: 'LR' });
+        const layouted = getLayoutedElements(nodes, edges, { direction: 'TB' });
 
         setNodes([...layouted.nodes]);
         setEdges([...layouted.edges]);
@@ -64,6 +65,12 @@ const InteractionVisualizer = ({ interactions }: Props) => {
         fitView();
 
     }, [])
+
+    useEffect(() => {
+        fitView()
+
+    }, [fitView, nodes, edges])
+
 
 
     const onLayout = useCallback(
@@ -85,9 +92,9 @@ const InteractionVisualizer = ({ interactions }: Props) => {
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             onConnect={onConnect} fitView>
-            <Panel position="top-right">
-                <button onClick={() => onLayout('TB')}>vertical layout</button>
-                <button onClick={() => onLayout('LR')}>horizontal layout</button>
+            <Panel position="top-left" className='flex gap-3'>
+                <Button variant={'outline'} onClick={() => onLayout('LR')}>vertical layout</Button>
+                <Button variant={'outline'} onClick={() => onLayout('TB')}>horizontal layout</Button>
             </Panel>
             <MiniMap pannable zoomable />
             <Background variant={BackgroundVariant.Dots} />

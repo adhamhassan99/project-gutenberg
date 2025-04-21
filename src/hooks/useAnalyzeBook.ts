@@ -29,6 +29,7 @@ export const useAnalyzeBook = () => {
 
             } catch (error) {
                 console.error(error, 'merge error')
+                throw new Error(error as string)
             }
 
 
@@ -41,8 +42,7 @@ export const useAnalyzeBook = () => {
 
 
         catch (error) {
-            console.error(error, ' errrrr')
-            throw new Error('error')
+            throw new Error(error as string)
         }
 
     }
